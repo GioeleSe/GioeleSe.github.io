@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BLE Fan — Gioele</title>
+  <meta name="description" content="Browser-based BLE controller for the ESP32 desk fan.">
+  <meta name="theme-color" content="#0f7c6e">
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Fonts — same as landing page -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ░░ NAV ░░ -->
+  <nav class="nav">
+    <a href="../../index.html" class="nav__back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+      Gioele Sesso
+    </a>
+    <div class="nav__right">
+      <span class="nav__app-label">BLE Desk Fan</span>
+      <a href="https://github.com/GioeleSe/BLE-fan" target="_blank" class="btn btn--ghost btn--sm">
+        Source ↗
+      </a>
+    </div>
+  </nav>
+
+  <!-- ░░ PAGE HEADER ░░ -->
+  <header class="page-header">
+    <div class="container">
+      <p class="eyebrow">ESP32 · Web Bluetooth</p>
+      <h1>BLE Desk Fan</h1>
+      <p class="page-header__sub">
+        Connect to your ESP32-powered fan over Bluetooth and control speed directly from the browser.
+        No app, no drivers — just Chrome or Edge.
+      </p>
+
+      <!-- Firefox warning -->
+      <div id="firefox-warning" class="alert alert--warn" hidden>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>Web Bluetooth isn't supported in Firefox. Open this page in <strong>Chrome</strong> or <strong>Edge</strong>.</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ░░ MAIN ░░ -->
+  <main class="container main-grid">
+
+    <!-- LEFT: Controls -->
+    <div class="controls-col">
+
+      <!-- Connection card -->
+      <section class="card" id="connection-card">
+        <div class="card__header">
+          <p class="card__label">Connection</p>
+          <div class="status-badge" id="status-badge" data-state="off">
+            <span class="status-badge__dot"></span>
+            <span class="status-badge__text">Disconnected</span>
+          </div>
+        </div>
+
+        <div class="ble-actions no-firefox">
+          <button class="btn btn--primary btn--full" id="btn-connect" onclick="connectBLE()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4.93 4.93l4.24 4.24"/><path d="M14.83 9.17l4.24-4.24"/><path d="M14.83 14.83l4.24 4.24"/><path d="M4.93 19.07l4.24-4.24"/><path d="M12 3v3m0 12v3M3 12h3m12 0h3"/></svg>
+            Connect to fan
+          </button>
+          <button class="btn btn--ghost btn--full" id="btn-disconnect" onclick="disconnectBLE()" hidden>
+            Disconnect
+          </button>
+        </div>
+      </section>
+
+      <!-- Speed card -->
+      <section class="card no-firefox" id="speed-card">
+        <div class="card__header">
+          <p class="card__label">Fan speed</p>
+          <span class="speed-readout"><span id="speed-value">60</span><span class="speed-unit">%</span></span>
+        </div>
+
+        <div class="slider-wrap">
+          <input
+            type="range"
+            id="speed-slider"
+            class="slider"
+            min="0" max="100" step="1" value="60"
+            oninput="onSliderInput(this.value)"
+            onchange="onSliderChange(this.value)"
+            aria-label="Fan speed"
+          >
+          <div class="slider-ticks" aria-hidden="true">
+            <span>0</span><span>25</span><span>50</span><span>75</span><span>100</span>
+          </div>
+        </div>
+
+        <!-- Track fill via CSS custom property -->
+        <style>
+          #speed-slider { --pct: 60%; }
+        </style>
+
+        <div class="preset-row">
+          <button class="btn btn--preset" onclick="setSpeed(0)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+            Off
+          </button>
+          <button class="btn btn--preset" onclick="setSpeed(25)">25%</button>
+          <button class="btn btn--preset" onclick="setSpeed(50)">50%</button>
+          <button class="btn btn--preset" onclick="setSpeed(75)">
+            75%
+            <span class="preset-hint">default</span>
+          </button>
+          <button class="btn btn--preset" onclick="setSpeed(100)">100%</button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- RIGHT: Info / log -->
+    <div class="info-col">
+
+      <!-- Log card -->
+      <section class="card card--log">
+        <div class="card__header">
+          <p class="card__label">Activity log</p>
+          <button class="btn btn--ghost btn--sm" onclick="clearLog()">Clear</button>
+        </div>
+        <ol class="log" id="log" reversed>
+          <li class="log__entry log__entry--muted">Waiting for connection…</li>
+        </ol>
+      </section>
+
+      <!-- About card -->
+      <section class="card card--about">
+        <p class="card__label">How it works</p>
+        <ul class="about-list">
+          <li>
+            <span class="about-list__icon" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </span>
+            Click <strong>Connect</strong> and select your ESP32 from the browser's BLE picker
+          </li>
+          <li>
+            <span class="about-list__icon" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </span>
+            Drag the slider or tap a preset — values are written to the BLE characteristic in real time
+          </li>
+          <li>
+            <span class="about-list__icon" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </span>
+            Install this page as a PWA — it works offline after first load
+          </li>
+        </ul>
+        <a href="https://github.com/GioeleSe/BLE-fan" target="_blank" class="about-link">
+          View full source on GitHub ↗
+        </a>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>BLE Desk Fan &mdash; <a href="../../index.html">Gioele Sesso</a></span>
+      <span class="footer__sw-status" id="sw-status">Service worker inactive</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

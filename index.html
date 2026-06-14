@@ -1,132 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Gioele ツ</title>
-    <style>
-        /* Optional style additions to make the slider look clean */
-        .slider-container {
-            margin: 20px 0;
-            max-width: 300px;
-        }
-        .slider-label {
-            font-size: 1.1rem;
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
-        input[type=range] {
-            width: 100%;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gioele Sesso</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>See what's going on with the BLE desk fan: <span onclick="show_BLEfan()" style="cursor: pointer; text-decoration: underline;">BLE-fan</span></h1>
-    <p>The entire repo is available at <a href="https://github.com/GioeleSe/BLE-fan" target="_blank">GioeleSe/BLE-fan</a></p>
 
-    <div id="BLE-fan-container" hidden>
-        
-        <h1>ESP32 BLE Fan Control</h1>
-        <h2>The fan control service is available only on Chrome and Edge since Firefox doesn't support Web Bluetooth :/</h2>
-        <div id="status">Status: Disconnected</div>
-        
-        <br>
-        <button class="btn-connect no-firefox" onclick="connectBLE()">Connect Fan</button><br><br>
-        <button class="btn-on no-firefox" onclick="turnOnDefault()">Turn ON (75%)</button>
-        <button class="btn-off no-firefox" onclick="turnOffFan()">Turn OFF</button>
+  <nav class="nav">
+    <span class="nav__name">Gioele Sesso</span>
+    <div class="nav__links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#projects">Projects</a>
+      <a href="mailto:gioele.se0@gmail.com" class="nav__cta">Get in touch</a>
+    </div>
+  </nav>
 
-        <div class="slider-container no-firefox">
-            <label class="slider-label" for="speedSlider">Fan Speed: <span id="speedValue">50</span>%</label>
-            <input type="range" id="speedSlider" min="0" max="100" value="60" oninput="updateSliderDisplay(this.value)" onchange="sendSliderValue(this.value)">
+  <header class="hero" id="about">
+    <div class="container hero__inner">
+      <div class="hero__text">
+        <p class="eyebrow">Computer &amp; Electronics Engineering</p>
+        <h1>Gioele Sesso</h1>
+        <p class="hero__bio">
+          Bachelor's student in ICE Engineering at the University of Trento.
+          I build things across the stack — from ESP32 firmware and embedded security
+          to web interfaces that talk directly to hardware via BLE.
+          Currently working as a university IT technician while finishing my degree.
+        </p>
+        <div class="hero__meta">
+          <span class="meta-tag"><span class="meta-dot"></span>Trento, Italy</span>
+          <span class="meta-tag"><span class="meta-dot meta-dot--amber"></span>Open to opportunities</span>
+        </div>
+        <div class="hero__links">
+          <a href="https://github.com/GioeleSe" target="_blank" class="btn btn--outline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            GitHub
+          </a>
+          <a href="mailto:gioele.se0@gmail.com" class="btn btn--outline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+            Email
+          </a>
+        </div>
+      </div>
+      <div class="hero__skills">
+        <p class="skills__label">Skills &amp; tools</p>
+        <div class="skills__grid">
+          <span class="skill-chip">ESP32 / Arduino</span>
+          <span class="skill-chip">Embedded C/C++</span>
+          <span class="skill-chip">Web Bluetooth (BLE)</span>
+          <span class="skill-chip">Linux</span>
+          <span class="skill-chip">Python</span>
+          <span class="skill-chip">JavaScript</span>
+          <span class="skill-chip">IoT / Sensors</span>
+          <span class="skill-chip">3D Printing</span>
+          <span class="skill-chip">IT Security</span>
+          <span class="skill-chip">HTML / CSS</span>
+        </div>
+        <p class="skills__label" style="margin-top: 1.5rem;">Languages</p>
+        <div class="lang-row">
+          <span class="lang-name">Italian</span>
+          <span class="lang-level lang-level--native">Native</span>
+        </div>
+        <div class="lang-row">
+          <span class="lang-name">English</span>
+          <span class="lang-level">C1</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section id="experience" class="section">
+      <h2 class="section__title">Experience</h2>
+      <div class="timeline">
+
+        <div class="timeline__item">
+          <div class="timeline__meta">
+            <span class="timeline__date">May 2026 — present</span>
+            <span class="timeline__location">Trambileno, Italy</span>
+          </div>
+          <div class="timeline__card">
+            <div class="timeline__header">
+              <div>
+                <p class="timeline__role">Seasonal Staff</p>
+                <p class="timeline__org">Rifugio Lancia</p>
+              </div>
+              <span class="badge badge--green">Current</span>
+            </div>
+            <p class="timeline__desc">Alpine refuge seasonal work — table service, kitchen support, and general maintenance.</p>
+          </div>
         </div>
 
-        <script>
-            if (navigator.userAgent.toLowerCase().includes('firefox')) {
-                document.querySelectorAll('.no-firefox').forEach(e => {
-                    e.toggleAttribute('hidden', true);
-                });
-            }
-        
-            const SERVICE_UUID = "4fa4c201-1fb5-459e-8fcc-c5c9c331914b";
-            const CHARACTERISTIC_UUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8";
-            
-            let fanCharacteristic = null;
-            let bleDevice = null;
+        <div class="timeline__item">
+          <div class="timeline__meta">
+            <span class="timeline__date">Oct 2025 — present</span>
+            <span class="timeline__location">Trento, Italy</span>
+          </div>
+          <div class="timeline__card">
+            <div class="timeline__header">
+              <div>
+                <p class="timeline__role">IT Technician</p>
+                <p class="timeline__org">University of Trento</p>
+              </div>
+              <span class="badge badge--green">Current</span>
+            </div>
+            <p class="timeline__desc">IT support for university workstations — hardware maintenance, laptop repair, office setup, and technical warehouse management.</p>
+          </div>
+        </div>
 
-            async function connectBLE() {
-                const statusDiv = document.getElementById('status');
-                statusDiv.innerText = "Status: Searching for device...";
-                
-                try {
-                    bleDevice = await navigator.bluetooth.requestDevice({
-                        filters: [{ services: [SERVICE_UUID] }]
-                    });
+        <div class="timeline__item">
+          <div class="timeline__meta">
+            <span class="timeline__date">May — Sep 2025</span>
+            <span class="timeline__location">Trambileno, Italy</span>
+          </div>
+          <div class="timeline__card">
+            <div class="timeline__header">
+              <div>
+                <p class="timeline__role">Seasonal Staff</p>
+                <p class="timeline__org">Rifugio Lancia</p>
+              </div>
+            </div>
+            <p class="timeline__desc">First season at the alpine refuge. Service and operations during the summer season.</p>
+          </div>
+        </div>
 
-                    statusDiv.innerText = "Status: Connecting to GATT Server...";
-                    const server = await bleDevice.gatt.connect();
+        <div class="timeline__item">
+          <div class="timeline__meta">
+            <span class="timeline__date">Jul — Oct 2023</span>
+            <span class="timeline__location">Vienna, Austria</span>
+          </div>
+          <div class="timeline__card timeline__card--highlight">
+            <div class="timeline__header">
+              <div>
+                <p class="timeline__role">Junior Software Developer</p>
+                <p class="timeline__org">CyberDanube</p>
+              </div>
+              <span class="badge badge--teal">Erasmus</span>
+            </div>
+            <p class="timeline__desc">Three-month Erasmus internship at an embedded IT security company in Vienna. Worked on emulation software testing across Linux environments for IoT components, and contributed to the internal security management application.</p>
+            <div class="timeline__tags">
+              <span class="tag">Embedded security</span>
+              <span class="tag">Linux</span>
+              <span class="tag">IoT emulation</span>
+            </div>
+          </div>
+        </div>
 
-                    statusDiv.innerText = "Status: Getting Service...";
-                    const service = await server.getPrimaryService(SERVICE_UUID);
+        <div class="timeline__item">
+          <div class="timeline__meta">
+            <span class="timeline__date">Jun 2022 — present</span>
+            <span class="timeline__location">Malo, Italy</span>
+          </div>
+          <div class="timeline__card">
+            <div class="timeline__header">
+              <div>
+                <p class="timeline__role">Mechatronics &amp; Web Collaborator</p>
+                <p class="timeline__org">The Next Sensor</p>
+              </div>
+            </div>
+            <p class="timeline__desc">Ongoing collaboration with a local IoT startup since secondary school. Built and maintained the company website, designed small automated mechatronic systems for internal use, supported ERP selection, and set up FDM 3D printers.</p>
+            <div class="timeline__tags">
+              <span class="tag">ESP32</span>
+              <span class="tag">3D printing (FDM)</span>
+              <span class="tag">Web</span>
+              <span class="tag">IoT</span>
+            </div>
+          </div>
+        </div>
 
-                    statusDiv.innerText = "Status: Getting Characteristic...";
-                    fanCharacteristic = await service.getCharacteristic(CHARACTERISTIC_UUID);
+      </div>
+    </section>
 
-                    statusDiv.innerText = "Status: Connected to Fan!";
-                    
-                    bleDevice.addEventListener('gattserverdisconnected', () => {
-                        statusDiv.innerText = "Status: Disconnected";
-                        fanCharacteristic = null;
-                    });
+    <section id="education" class="section">
+      <h2 class="section__title">Education</h2>
+      <div class="edu-grid">
+        <div class="edu-card edu-card--active">
+          <div class="edu-card__year">2023 — present</div>
+          <h3 class="edu-card__degree">B.Sc. Information, Computer &amp; Electrical Engineering <span class="edu-card__track">(ICE)</span></h3>
+          <p class="edu-card__school">University of Trento</p>
+          <p class="edu-card__note">English-taught programme. Aiming for a Master's in Information Engineering with a specialisation in embedded systems.</p>
+        </div>
+        <div class="edu-card">
+          <div class="edu-card__year">2018 — 2023</div>
+          <h3 class="edu-card__degree">Technical Diploma <span class="edu-card__track">Computer Science &amp; Telecommunications</span></h3>
+          <p class="edu-card__school">ITT G. Chilesotti, Thiene</p>
+          <p class="edu-card__note">Software development, networking, and applied ICT. Foundation for the practical work that followed.</p>
+        </div>
+      </div>
+    </section>
 
-                } catch (error) {
-                    console.log(error);
-                    statusDiv.innerText = "Status: Connection Failed. " + error.message;
-                }
-            }
+    <section id="projects" class="section">
+      <h2 class="section__title">Projects &amp; Web Apps</h2>
+      <p class="section__sub">Browser-based tools for hardware control — installable as PWAs, usable offline after first load. Requires Chrome or Edge (Web Bluetooth API).</p>
+      <div class="projects-grid">
 
-            // Updates the label text instantly while moving the slider knob
-            function updateSliderDisplay(val) {
-                document.getElementById('speedValue').innerText = val;
-            }
+        <div class="project-card project-card--featured">
+          <div class="project-card__header">
+            <div class="project-card__icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a10 10 0 0 1 0 20 10 10 0 0 1 0-20"/><path d="M12 8v4l3 3"/></svg>
+            </div>
+            <span class="badge badge--teal">BLE</span>
+          </div>
+          <h3 class="project-card__title">BLE Desk Fan</h3>
+          <p class="project-card__desc">Control a desk fan over Bluetooth Low Energy directly from the browser. Speed slider, presets, and live connection status. Built on ESP32.</p>
+          <div class="project-card__footer">
+            <div class="timeline__tags">
+              <span class="tag">ESP32</span>
+              <span class="tag">Web Bluetooth</span>
+              <span class="tag">Vanilla JS</span>
+            </div>
+            <div class="project-card__actions">
+              <a href="./apps/ble-fan/" class="btn btn--primary">Open app</a>
+              <a href="https://github.com/GioeleSe/BLE-fan" target="_blank" class="btn btn--ghost">Source ↗</a>
+            </div>
+          </div>
+        </div>
 
-            // Fires the BLE write action specifically when you finish adjusting or release the slider
-            function sendSliderValue(val) {
-                sendControlSignal(val.toString());
-            }
+        <div class="project-card project-card--placeholder">
+          <div class="project-card__header">
+            <div class="project-card__icon project-card__icon--muted" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <span class="badge badge--muted">Coming soon</span>
+          </div>
+          <h3 class="project-card__title project-card__title--muted">Next BLE project</h3>
+          <p class="project-card__desc project-card__desc--muted">More hardware experiments on the way. Follow the GitHub to stay updated.</p>
+          <div class="project-card__footer">
+            <a href="https://github.com/GioeleSe" target="_blank" class="btn btn--ghost">GitHub ↗</a>
+          </div>
+        </div>
 
-            // Helper to sync slider display and turn fan on at a safe default of 75%
-            function turnOnDefault() {
-                document.getElementById('speedSlider').value = 75;
-                updateSliderDisplay(75);
-                sendControlSignal('75');
-            }
+      </div>
+    </section>
 
-            // Helper to sync slider down to its floor value but send an absolute 0 to engage your code's relay cutoff logic
-            function turnOffFan() {
-                sendControlSignal('0');
-            }
+  </main>
 
-            async function sendControlSignal(value) {
-                if (!fanCharacteristic) {
-                    alert("Please connect to the BLE device first!");
-                    return;
-                }
-                try {
-                    const encoder = new TextEncoder();
-                    await fanCharacteristic.writeValue(encoder.encode(value));
-                    console.log(`Sent: ${value}`);
-                } catch (error) {
-                    console.error("Error writing characteristic:", error);
-                }
-            }
-        </script>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>Gioele Sesso &mdash; Trento, Italy</span>
+      <div class="footer__links">
+        <a href="https://github.com/GioeleSe" target="_blank">GitHub</a>
+        <a href="mailto:gioele.se0@gmail.com">gioele.se0@gmail.com</a>
+      </div>
     </div>
+  </footer>
 
-    <script>
-        // Fixed a missing parenthesis bug in your raw click toggle string reference
-        function show_BLEfan(){
-            document.getElementById('BLE-fan-container').toggleAttribute('hidden');
-        }
-    </script>
 </body>
 </html>

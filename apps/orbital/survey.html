@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ORBITAL | DIY Vertical Mouse & OLED Hardware Validation Survey</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body class="bg-bg text-textMain selection:bg-accent selection:text-bg min-h-screen py-10 px-4 md:px-8 flex flex-col items-center justify-center font-sans">
+  
+  <div class="max-w-2xl w-full bg-card/90 backdrop-blur-2xl p-6 sm:p-10 md:p-12 rounded-3xl border border-borderClr shadow-2xl my-8">
+    
+    <!-- Header Context -->
+    <div class="mb-8 border-b border-borderClr pb-6">
+      <div class="flex items-center justify-between gap-4 mb-4">
+        <a href="index.html" class="inline-flex items-center gap-1.5 text-xs text-accent uppercase tracking-widest font-semibold hover:underline">
+          &larr; Return to 3D Concept Overview
+        </a>
+        <span class="text-[11px] bg-accent/10 text-accent border border-accent/25 px-2.5 py-1 rounded-full font-medium">
+          Stage 02: Maker Survey
+        </span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-light text-accent-light tracking-tight">
+        Hardware Validation Survey
+      </h1>
+      <p class="text-textMuted text-sm mt-3 leading-relaxed">
+        We are upgrading classical vertical mouse hardware with an ESP32 microcontroller and a generic round OLED display inside a custom PLA 3D-printed shell. Your feedback directly determines the connectivity architecture, touchscreen behavior, and firmware applets of the physical prototype.
+      </p>
+    </div>
+
+    <form id="preferenceForm" class="space-y-8" novalidate>
+      
+      <!-- 1. Validation & Interest Intent -->
+      <div class="space-y-2">
+        <label class="block text-sm font-medium text-accent-light">
+          1. Concept Interest & Validation Intent
+        </label>
+        <p class="text-xs text-textMuted">How interested are you in this classical vertical form factor augmented with a circular OLED screen?</p>
+        <div class="bg-surface p-4 rounded-2xl border border-borderClr text-sm">
+          <div class="flex justify-between items-center text-xs text-textMuted mb-3">
+            <span>Observing Curiosity</span>
+            <span>Eager to Test Prototype</span>
+          </div>
+          <div class="flex justify-between items-center px-2">
+            <label class="flex flex-col items-center gap-1 cursor-pointer">
+              <input type="radio" name="intention" value="1" class="accent-accent">
+              <span class="text-xs text-textMuted">1</span>
+            </label>
+            <label class="flex flex-col items-center gap-1 cursor-pointer">
+              <input type="radio" name="intention" value="2" class="accent-accent">
+              <span class="text-xs text-textMuted">2</span>
+            </label>
+            <label class="flex flex-col items-center gap-1 cursor-pointer">
+              <input type="radio" name="intention" value="3" class="accent-accent" checked>
+              <span class="text-xs text-textMuted">3</span>
+            </label>
+            <label class="flex flex-col items-center gap-1 cursor-pointer">
+              <input type="radio" name="intention" value="4" class="accent-accent">
+              <span class="text-xs text-textMuted">4</span>
+            </label>
+            <label class="flex flex-col items-center gap-1 cursor-pointer">
+              <input type="radio" name="intention" value="5" class="accent-accent">
+              <span class="text-xs text-textMuted">5</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Connectivity & Cable Architecture -->
+      <div class="space-y-3">
+        <label class="block text-sm font-medium text-accent-light">
+          2. Connectivity & Cable Architecture Preference
+        </label>
+        <p class="text-xs text-textMuted">What is your ideal connectivity setup when upgrading from a cabled vertical mouse?</p>
+        <div class="space-y-2.5 text-sm">
+          <label class="flex items-start gap-3 bg-surface p-3.5 rounded-2xl border border-borderClr cursor-pointer hover:border-accent/50 transition">
+            <input type="radio" name="cable_pref" value="paracord" checked class="accent-accent mt-0.5">
+            <div>
+              <span class="font-medium text-accent-light block">Detachable USB-C with Ultra-Flexible Paracord Cable</span>
+              <span class="text-xs text-textMuted block mt-0.5">Allows simultaneous play & charge with zero drag; ideal for continuous 8+ hour workloads without battery anxiety.</span>
+            </div>
+          </label>
+          <label class="flex items-start gap-3 bg-surface p-3.5 rounded-2xl border border-borderClr cursor-pointer hover:border-accent/50 transition">
+            <input type="radio" name="cable_pref" value="wireless_only" class="accent-accent mt-0.5">
+            <div>
+              <span class="font-medium text-accent-light block">100% Pure Wireless (Internal Battery + Charging Dock)</span>
+              <span class="text-xs text-textMuted block mt-0.5">Completely clean desk with wireless charging base; sealed enclosure with zero cables during use.</span>
+            </div>
+          </label>
+          <label class="flex items-start gap-3 bg-surface p-3.5 rounded-2xl border border-borderClr cursor-pointer hover:border-accent/50 transition">
+            <input type="radio" name="cable_pref" value="tri_mode" class="accent-accent mt-0.5">
+            <div>
+              <span class="font-medium text-accent-light block">Tri-Mode (ESP32 Bluetooth LE + Wi-Fi / Dongle + Standard USB-C)</span>
+              <span class="text-xs text-textMuted block mt-0.5">Maximum flexibility across Mac, PC, Linux, and tablets with multiple connection modes.</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- 3. OLED Touchscreen Interactivity -->
+      <div class="space-y-3">
+        <label class="block text-sm font-medium text-accent-light">
+          3. Circular OLED Touchscreen Interactivity
+        </label>
+        <p class="text-xs text-textMuted">How should you interact with the circular screen on top of the mouse?</p>
+        <div class="space-y-2.5 text-sm">
+          <label class="flex items-start gap-3 bg-surface p-3.5 rounded-2xl border border-borderClr cursor-pointer hover:border-accent/50 transition">
+            <input type="radio" name="touch_interaction" value="capacitive_touch" checked class="accent-accent mt-0.5">
+            <div>
+              <span class="font-medium text-accent-light block">Full Capacitive Touchscreen (Swipe & Tap)</span>
+              <span class="text-xs text-textMuted block mt-0.5">Swipe through profiles, tap to toggle DPI, and play touch-based mini applets directly on the glass.</span>
+            </div>
+          </label>
+          <label class="flex items-start gap-3 bg-surface p-3.5 rounded-2xl border border-borderClr cursor-pointer hover:border-accent/50 transition">
+            <input type="radio" name="touch_interaction" value="display_only" class="accent-accent mt-0.5">
+            <div>
+              <span class="font-medium text-accent-light block">Display-Only (Controlled via Physical Buttons / Software)</span>
+              <span class="text-xs text-textMuted block mt-0.5">Non-touch screen to prevent accidental touches; screens and menus are cycled using dedicated physical buttons.</span>
+            </div>
+          </label>
+          <label class="flex items-start gap-3 bg-surface p-3.5 rounded-2xl border border-borderClr cursor-pointer hover:border-accent/50 transition">
+            <input type="radio" name="touch_interaction" value="battery_priority" class="accent-accent mt-0.5">
+            <div>
+              <span class="font-medium text-accent-light block">Indifferent / Whichever Conserves More Battery</span>
+              <span class="text-xs text-textMuted block mt-0.5">Prioritize runtime over interaction features.</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- 4. OLED Content: Games vs Productivity -->
+      <div class="space-y-3">
+        <label class="block text-sm font-medium text-accent-light">
+          4. OLED Software Focus: Productivity, Games, or Both?
+        </label>
+        <p class="text-xs text-textMuted">What category of software features should the mouse screen deliver?</p>
+        <div class="space-y-2.5 text-sm">
+          <label class="flex items-start gap-3 bg-surface p-3.5 rounded-2xl border border-borderClr cursor-pointer hover:border-accent/50 transition">
+            <input type="radio" name="oled_focus" value="both" checked class="accent-accent mt-0.5">
+            <div>
+              <span class="font-medium text-accent-light block">Both Productivity & Micro-Games (Dual Modes)</span>
+              <span class="text-xs text-textMuted block mt-0.5">Glanceable work telemetry during focus hours, with quick tactile mini-games (Pong, Snake) during short Pomodoro stretch breaks.</span>
+            </div>
+          </label>
+          <label class="flex items-start gap-3 bg-surface p-3.5 rounded-2xl border border-borderClr cursor-pointer hover:border-accent/50 transition">
+            <input type="radio" name="oled_focus" value="productivity_only" class="accent-accent mt-0.5">
+            <div>
+              <span class="font-medium text-accent-light block">Productivity & System Diagnostics Only</span>
+              <span class="text-xs text-textMuted block mt-0.5">Strictly utilitarian: DPI readout, battery gauge, CPU/RAM stats, macro profiles, and active connectivity link.</span>
+            </div>
+          </label>
+          <label class="flex items-start gap-3 bg-surface p-3.5 rounded-2xl border border-borderClr cursor-pointer hover:border-accent/50 transition">
+            <input type="radio" name="oled_focus" value="games_only" class="accent-accent mt-0.5">
+            <div>
+              <span class="font-medium text-accent-light block">Casual Micro-Games & Relaxation Only</span>
+              <span class="text-xs text-textMuted block mt-0.5">Focus purely on quick relaxation and ergonomic hand relaxation mini-games during pauses.</span>
+            </div>
+          </label>
+          <label class="flex items-start gap-3 bg-surface p-3.5 rounded-2xl border border-borderClr cursor-pointer hover:border-accent/50 transition">
+            <input type="radio" name="oled_focus" value="minimal" class="accent-accent mt-0.5">
+            <div>
+              <span class="font-medium text-accent-light block">Ultra-Minimalist (Status Indicator Only)</span>
+              <span class="text-xs text-textMuted block mt-0.5">Just a discrete battery percentage and active host indicator to minimize all visual distraction.</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- 5. Specific Desired Features -->
+      <div class="space-y-3">
+        <label class="block text-sm font-medium text-accent-light">
+          5. Which Specific On-Screen Applets & Hardware Features Would You Value Most?
+        </label>
+        <p class="text-xs text-textMuted">Select all features you would actively use on a vertical mouse:</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+          <label class="flex items-center gap-2.5 bg-surface p-3 rounded-xl border border-borderClr cursor-pointer hover:border-accent/40 transition">
+            <input type="checkbox" name="feature" value="dpi_indicator" checked class="accent-accent">
+            <span>Live DPI Level & Preset Swap</span>
+          </label>
+          <label class="flex items-center gap-2.5 bg-surface p-3 rounded-xl border border-borderClr cursor-pointer hover:border-accent/40 transition">
+            <input type="checkbox" name="feature" value="battery_gauge" checked class="accent-accent">
+            <span>Battery % & Time-Remaining</span>
+          </label>
+          <label class="flex items-center gap-2.5 bg-surface p-3 rounded-xl border border-borderClr cursor-pointer hover:border-accent/40 transition">
+            <input type="checkbox" name="feature" value="pomodoro" checked class="accent-accent">
+            <span>Pomodoro / Ergonomic Rest Timer</span>
+          </label>
+          <label class="flex items-center gap-2.5 bg-surface p-3 rounded-xl border border-borderClr cursor-pointer hover:border-accent/40 transition">
+            <input type="checkbox" name="feature" value="mini_games" checked class="accent-accent">
+            <span>Micro-Games (Pong, Snake)</span>
+          </label>
+          <label class="flex items-center gap-2.5 bg-surface p-3 rounded-xl border border-borderClr cursor-pointer hover:border-accent/40 transition">
+            <input type="checkbox" name="feature" value="audio_buzzer" checked class="accent-accent">
+            <span>Mini Audio Buzzer (Game audio & timer chime)</span>
+          </label>
+          <label class="flex items-center gap-2.5 bg-surface p-3 rounded-xl border border-borderClr cursor-pointer hover:border-accent/40 transition">
+            <input type="checkbox" name="feature" value="host_switch" class="accent-accent">
+            <span>Multi-Host Quick Swap (PC/Mac)</span>
+          </label>
+          <label class="flex items-center gap-2.5 bg-surface p-3 rounded-xl border border-borderClr cursor-pointer hover:border-accent/40 transition">
+            <input type="checkbox" name="feature" value="media_controls" class="accent-accent">
+            <span>Spotify / Media Control Ring</span>
+          </label>
+          <label class="flex items-center gap-2.5 bg-surface p-3 rounded-xl border border-borderClr cursor-pointer hover:border-accent/40 transition">
+            <input type="checkbox" name="feature" value="custom_bitmaps" class="accent-accent">
+            <span>Custom Pixel Art & Avatars</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 6. Real-Life Daily Usage Scenarios & Practicality -->
+      <div class="space-y-3">
+        <label class="block text-sm font-medium text-accent-light">
+          6. Real-Life Usage Routine & Workstation Tasks
+        </label>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+          <div>
+            <label class="block text-xs text-textMuted mb-1.5">Daily Mouse Usage</label>
+            <select name="usage_hours" class="w-full bg-surface border border-borderClr rounded-xl px-3.5 py-2.5 text-textMain focus:outline-none focus:border-accent text-sm">
+              <option value="under_4">&lt; 4 Hours / Day</option>
+              <option value="4_to_8" selected>4 - 8 Hours / Day</option>
+              <option value="over_8">8+ Hours (Intense Coding / 3D / Design)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs text-textMuted mb-1.5">Primary Daily Tasks</label>
+            <select name="primary_task" class="w-full bg-surface border border-borderClr rounded-xl px-3.5 py-2.5 text-textMain focus:outline-none focus:border-accent text-sm">
+              <option value="programming" selected>Software Development / Coding</option>
+              <option value="design_3d">3D Modeling / CAD / Graphic Design</option>
+              <option value="general_office">Office Work / Writing / Research</option>
+              <option value="mixed_gaming">Mixed Work & Gaming</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Direct Suggestions with Sanity Check -->
+      <div class="space-y-3">
+        <div class="flex justify-between items-center">
+          <label for="suggestionsInput" class="block text-sm font-medium text-accent-light">
+            7. Direct Suggestions & Hardware Ideas
+          </label>
+          <span id="charCount" class="text-[11px] text-textMuted">0 / 1000</span>
+        </div>
+        <div>
+          <textarea
+            name="suggestions"
+            id="suggestionsInput"
+            maxlength="1000"
+            rows="4"
+            placeholder="Any suggestions for ESP32 firmware features, button placement, buzzer feedback, or OLED applets that would make this mouse practical for you?"
+            class="w-full bg-surface border border-borderClr rounded-xl p-3.5 text-textMain placeholder-textMuted/50 focus:outline-none focus:border-accent text-sm resize-none transition"
+          ></textarea>
+          <p id="suggestionsError" class="text-xs text-red-400 mt-1.5 hidden"></p>
+        </div>
+        <p class="text-[11px] text-textMuted">Your suggestions are sanity-checked and dispatched directly to the developer's email inbox.</p>
+      </div>
+
+      <button type="submit" id="submitBtn" class="w-full bg-accent text-bg py-4 rounded-2xl font-semibold hover:bg-accent-light transition shadow-lg shadow-accent/15 cursor-pointer flex items-center justify-center gap-2">
+        <span id="submitBtnText">Send Survey Results via Email</span>
+      </button>
+    </form>
+
+    <!-- Submission Confirmation View -->
+    <div id="thankYouMsg" class="hidden text-center py-8">
+      <div class="w-14 h-14 bg-accent/20 text-accent rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">✓</div>
+      <h2 class="text-2xl sm:text-3xl font-light text-accent-light mb-2">Feedback Delivered!</h2>
+      <p class="text-textMuted text-sm max-w-md mx-auto leading-relaxed">
+        Your survey answers have been sent directly to the developer's email and recorded for the PLA 3D-printed prototype build.
+      </p>
+      
+      <div id="emailBackupNotice" class="mt-4 p-3 bg-surface/60 border border-borderClr rounded-xl text-xs text-textMuted max-w-md mx-auto hidden">
+        <span>If your browser blocked the automated delivery, you can also </span>
+        <a id="manualMailtoLink" href="#" class="text-accent underline font-medium">click here to send via your email client</a>.
+      </div>
+
+      <a href="index.html" class="inline-block mt-6 bg-accent text-bg px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider hover:bg-accent-light transition">
+        &larr; Return to 3D Concept Model
+      </a>
+    </div>
+
+    <!-- Quick Share Section -->
+    <div class="mt-12 pt-8 border-t border-borderClr">
+      <div class="text-center mb-6">
+        <span class="text-accent text-[11px] uppercase tracking-widest font-semibold block mb-1">Spread the Word</span>
+        <h3 class="text-xl font-light text-accent-light">Share This Validation Study</h3>
+        <p class="text-xs text-textMuted mt-1">Help us reach more makers, developers, and vertical mouse users.</p>
+      </div>
+
+      <div class="bg-surface/80 p-6 rounded-2xl border border-borderClr flex flex-col md:flex-row items-center gap-6 justify-between">
+        <!-- QR Code to Itself -->
+        <div class="flex flex-col items-center text-center">
+          <div data-qr-target class="p-2.5 bg-accent-light rounded-2xl shadow-md inline-block"></div>
+          <span class="text-[11px] text-textMuted mt-2">Scan on Phone</span>
+        </div>
+
+        <!-- Share Buttons -->
+        <div class="flex-1 w-full space-y-3">
+          <div class="grid grid-cols-2 gap-2.5">
+            <button type="button" data-share="whatsapp" class="flex items-center justify-center gap-2 bg-[#25D366]/15 hover:bg-[#25D366]/25 text-[#25D366] border border-[#25D366]/30 px-4 py-2.5 rounded-xl text-xs font-medium transition cursor-pointer">
+              <span>WhatsApp</span>
+            </button>
+            <button type="button" data-share="telegram" class="flex items-center justify-center gap-2 bg-[#229ED9]/15 hover:bg-[#229ED9]/25 text-[#229ED9] border border-[#229ED9]/30 px-4 py-2.5 rounded-xl text-xs font-medium transition cursor-pointer">
+              <span>Telegram</span>
+            </button>
+            <button type="button" data-share="twitter" class="flex items-center justify-center gap-2 bg-textMain/10 hover:bg-textMain/20 text-textMain border border-borderClr px-4 py-2.5 rounded-xl text-xs font-medium transition cursor-pointer">
+              <span>X (Twitter)</span>
+            </button>
+            <button type="button" data-share="linkedin" class="flex items-center justify-center gap-2 bg-[#0A66C2]/15 hover:bg-[#0A66C2]/25 text-[#0A66C2] border border-[#0A66C2]/30 px-4 py-2.5 rounded-xl text-xs font-medium transition cursor-pointer">
+              <span>LinkedIn</span>
+            </button>
+          </div>
+
+          <button type="button" data-share="copy" class="w-full bg-card hover:bg-surface border border-borderClr text-textMain px-4 py-2.5 rounded-xl text-xs font-medium transition flex items-center justify-center gap-2 cursor-pointer">
+            <span>Copy Validation Link</span>
+          </button>
+          
+          <button type="button" data-share="native" class="hidden w-full bg-accent/20 hover:bg-accent/30 text-accent border border-accent/30 px-4 py-2.5 rounded-xl text-xs font-medium transition items-center justify-center gap-2 cursor-pointer">
+            <span>Share via System Dialog</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/share.js"></script>
+  <script>
+    // =========================================================================
+    // SURVEY DESTINATION EMAIL CONFIGURATION
+    // FormSubmit token / email address configured by the developer:
+    // =========================================================================
+    const SURVEY_RECIPIENT_EMAIL = "8c2151a5f2f3000a9696ad6b50c21828".trim();
+
+    const suggestionsInput = document.getElementById('suggestionsInput');
+    const suggestionsError = document.getElementById('suggestionsError');
+    const charCount = document.getElementById('charCount');
+
+    // Real-time character counter & error reset
+    suggestionsInput.addEventListener('input', function() {
+      const len = this.value.length;
+      charCount.textContent = `${len} / 1000`;
+      if (suggestionsError.textContent) {
+        suggestionsError.classList.add('hidden');
+        suggestionsError.textContent = '';
+        suggestionsInput.classList.remove('border-red-500');
+      }
+    });
+
+    /**
+     * Sanity check for the direct suggestions field:
+     * - Optional: empty or whitespace-only passes cleanly.
+     * - Max length: 1000 characters.
+     * - Min length (if non-empty): at least 3 characters.
+     * - Disallows HTML tags, script injection, and javascript: pseudo-protocol.
+     * - Disallows excessive repetitive character spam (e.g. 8+ identical characters in a row).
+     * - Limits hyperlinks to at most 2 to prevent link-dropping abuse.
+     */
+    function validateSuggestions(rawText) {
+      const text = (rawText || '').trim();
+
+      // Field is optional
+      if (text.length === 0) {
+        return { valid: true, sanitized: 'None provided' };
+      }
+
+      if (text.length > 1000) {
+        return { valid: false, error: 'Suggestion must be 1000 characters or fewer.' };
+      }
+
+      if (text.length < 3) {
+        return { valid: false, error: 'Please enter at least 3 characters if providing a suggestion.' };
+      }
+
+      // Check for HTML / script injection patterns
+      if (/<[a-z\/!][\s\S]*>/i.test(text) || /javascript:/i.test(text) || /on\w+\s*=/i.test(text)) {
+        return { valid: false, error: 'HTML tags or script injections are not allowed in suggestions.' };
+      }
+
+      // Check for excessive repetitive character spam (e.g., aaaaaaaa)
+      if (/(.)\1{7,}/i.test(text)) {
+        return { valid: false, error: 'Please avoid repetitive character spam in your suggestion.' };
+      }
+
+      // Limit URLs to prevent spam floods
+      const urlMatches = text.match(/https?:\/\/[^\s]+/gi) || [];
+      if (urlMatches.length > 2) {
+        return { valid: false, error: 'Please limit links to a maximum of 2 references.' };
+      }
+
+      return { valid: true, sanitized: text };
+    }
+
+    document.getElementById('preferenceForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      // Run sanity check on direct suggestions
+      const validationResult = validateSuggestions(suggestionsInput.value);
+      if (!validationResult.valid) {
+        suggestionsError.textContent = validationResult.error;
+        suggestionsError.classList.remove('hidden');
+        suggestionsInput.classList.add('border-red-500');
+        suggestionsInput.focus();
+        suggestionsInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      // Clear any prior validation errors
+      suggestionsError.classList.add('hidden');
+      suggestionsError.textContent = '';
+      suggestionsInput.classList.remove('border-red-500');
+
+      const submitBtn = document.getElementById('submitBtn');
+      const submitBtnText = document.getElementById('submitBtnText');
+      submitBtn.disabled = true;
+      submitBtnText.innerHTML = '<span class="inline-block animate-spin mr-2">⟳</span> Sending to Developer Email...';
+
+      const form = e.target;
+      const formData = new FormData(form);
+
+      // Collect multiple checkbox values
+      const selectedFeatures = [];
+      form.querySelectorAll('input[name="feature"]:checked').forEach(cb => {
+        selectedFeatures.push(cb.value);
+      });
+
+      const payload = {
+        _subject: "ORBITAL Mouse Survey Response - Hardware Validation",
+        intention_rating: formData.get('intention'),
+        cable_preference: formData.get('cable_pref'),
+        touchscreen_interaction: formData.get('touch_interaction'),
+        oled_content_focus: formData.get('oled_focus'),
+        desired_features: selectedFeatures.join(', '),
+        daily_usage_hours: formData.get('usage_hours'),
+        primary_task: formData.get('primary_task'),
+        suggestions: validationResult.sanitized,
+        submitted_at: new Date().toLocaleString()
+      };
+
+      let emailSent = false;
+
+      // 1. Send directly via FormSubmit AJAX service
+      try {
+        const formSubmitUrl = `https://formsubmit.co/ajax/${encodeURIComponent(SURVEY_RECIPIENT_EMAIL)}`;
+        const res = await fetch(formSubmitUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          emailSent = true;
+        }
+      } catch (err) {
+        console.warn("FormSubmit delivery error (likely offline or blocked):", err);
+      }
+
+      // 2. Also record locally if running the local Node.js development server
+      try {
+        await fetch("/api/survey", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+      } catch (err) {
+        // Not running on Node server (e.g. GitHub Pages), perfectly normal
+      }
+
+      // 3. Save to localStorage as backup
+      try {
+        const localSaved = JSON.parse(localStorage.getItem('orbital_survey_responses') || '[]');
+        localSaved.push(payload);
+        localStorage.setItem('orbital_survey_responses', JSON.stringify(localSaved));
+      } catch (e) {}
+
+      // Prepare mailto fallback link just in case user is in offline mode
+      const mailtoSubject = encodeURIComponent("ORBITAL Mouse Survey Response");
+      const mailtoBody = encodeURIComponent(
+        `ORBITAL Vertical Mouse Hardware Survey Response:\n\n` +
+        `Concept Interest: ${payload.intention_rating} / 5\n` +
+        `Cable Preference: ${payload.cable_preference}\n` +
+        `OLED Touch Interaction: ${payload.touchscreen_interaction}\n` +
+        `OLED Software Focus: ${payload.oled_content_focus}\n` +
+        `Selected Features: ${payload.desired_features}\n` +
+        `Daily Usage Hours: ${payload.daily_usage_hours}\n` +
+        `Primary Task: ${payload.primary_task}\n` +
+        `Suggestions: ${payload.suggestions}\n`
+      );
+      const mailtoUrl = `mailto:${SURVEY_RECIPIENT_EMAIL}?subject=${mailtoSubject}&body=${mailtoBody}`;
+      document.getElementById('manualMailtoLink').href = mailtoUrl;
+
+      if (!emailSent) {
+        document.getElementById('emailBackupNotice').classList.remove('hidden');
+      }
+
+      form.classList.add('hidden');
+      document.getElementById('thankYouMsg').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
